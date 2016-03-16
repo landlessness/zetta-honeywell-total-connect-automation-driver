@@ -1,0 +1,27 @@
+{
+  "name": "zetta-honeywell-total-connect-automation-driver",
+  "version": "0.0.1",
+  "description": "A Zetta driver for Honeywell Total Connect automation",
+  "main": "index.js",
+  "scripts": {
+  },
+  "license": "MIT",
+  "dependencies": {
+    "soap": "0.13.0",
+    "zetta-scout": "^0.6.0",
+    "zetta-device": "~0.18.0"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "devDependencies": {
+  },
+  "keywords": [
+    "zetta",
+    "honeywell",
+    "totalconnect",
+    "alarmnet",
+    "iot",
+    "automation"
+  ]
+}
