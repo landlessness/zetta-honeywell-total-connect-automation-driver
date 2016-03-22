@@ -11,6 +11,10 @@
     "zetta-scout": "^0.6.0",
     "zetta-device": "~0.18.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/landlessness/zetta-honeywell-total-connect-automation-driver.git"
+  },
   "directories": {
     "example": "example"
   },

@@ -7,12 +7,12 @@ var HoneywellTotalConnectAutomation = module.exports = function() {
   Device.call(this);
 
   this._soap = arguments[0];
-  this.locationID = arguments[1].LocationID;
+  this.LocationID = arguments[1].LocationID;
 
   var device = arguments[2];
-  this.deviceID = device.DeviceID;
-  this.deviceName = device.DeviceName;
-  this.deviceSerialNumber = device.DeviceSerialNumber;
+  this.DeviceID = device.DeviceID;
+  this.DeviceName = device.DeviceName;
+  this.DeviceSerialNumber = device.DeviceSerialNumber;
 
   var flags = device.DeviceFlags.split(',');
   for (i=0; i<flags.length; i++) {
@@ -21,18 +21,18 @@ var HoneywellTotalConnectAutomation = module.exports = function() {
     this[key] = flagKeyValue[1];
   }
 
-  this.automationData = arguments[3];
-  console.log('AutomationData Driver constructor automationData: ' + util.inspect(this.automationData));
-  this.accountID = this.automationData.AccountID;
-  this.deviceSerialText = this.automationData.DeviceSerialText;
-  this.lockCapacity = this.automationData.LockCapacity;
-  this.switchCapacity = this.automationData.SwitchCapacity;
-  this.thermostatCapacity = this.automationData.ThermostatCapacity;
-  this.sceneCapacity = this.automationData.SceneCapacity;
-  this.deviceCapacityPerScene = this.automationData.DeviceCapacityPerScene;
-  this.syncDeviceFlag = this.automationData.SyncDeviceFlag;
-  this.communicationState = this.automationData.CommunicationState;
-  this.automationStatusLimit = this.automationData.AutomationStatusLimit;
+  this.AutomationData = arguments[3];
+  console.log('AutomationData Driver constructor AutomationData: ' + util.inspect(this.AutomationData));
+  this.AccountID = this.AutomationData.AccountID;
+  this.DeviceSerialText = this.AutomationData.DeviceSerialText;
+  this.LockCapacity = this.AutomationData.LockCapacity;
+  this.SwitchCapacity = this.AutomationData.SwitchCapacity;
+  this.ThermostatCapacity = this.AutomationData.ThermostatCapacity;
+  this.SceneCapacity = this.AutomationData.SceneCapacity;
+  this.DeviceCapacityPerScene = this.AutomationData.DeviceCapacityPerScene;
+  this.SyncDeviceFlag = this.AutomationData.SyncDeviceFlag;
+  this.CommunicationState = this.AutomationData.CommunicationState;
+  this.AutomationStatusLimit = this.AutomationData.AutomationStatusLimit;
 };
 util.inherits(HoneywellTotalConnectAutomation, Device);
 
@@ -40,10 +40,10 @@ util.inherits(HoneywellTotalConnectAutomation, Device);
 HoneywellTotalConnectAutomation.prototype.init = function(config) {
 
   config
-    .name(this.deviceName)
+    .name(this.DeviceName)
     .type('automation')
     .state('ready')
-    .monitor('automationData')
+    .monitor('AutomationData')
     .map('update-state', this.updateState, [{name: 'newState', type: 'text'}]);
     
     this._getAutomationDeviceStatusEx();
@@ -52,7 +52,7 @@ HoneywellTotalConnectAutomation.prototype.init = function(config) {
 
 HoneywellTotalConnectAutomation.prototype._getAutomationDeviceStatusEx = function() {
   console.log('_getAutomationDeviceStatusEx ');
-  this._soap._getAutomationDeviceStatusEx(this.deviceID, this._getAutomationDeviceStatusExCallback.bind(this));
+  this._soap._getAutomationDeviceStatusEx(this.DeviceID, this._getAutomationDeviceStatusExCallback.bind(this));
 }
 
 HoneywellTotalConnectAutomation.prototype._getAutomationDeviceStatusExCallback = function(err, result, raw, soapHeader) {
@@ -64,8 +64,8 @@ HoneywellTotalConnectAutomation.prototype._getAutomationDeviceStatusExCallback =
   
   switch (result.GetAutomationDeviceStatusExResult.ResultCode) {
   case 0:
-    this.automationData = result.GetAutomationDeviceStatusExResult.AutomationData;
-    console.log('AutomationData callback: ' + util.inspect(this.automationData.AutomationSwitch));
+    this.AutomationData = result.GetAutomationDeviceStatusExResult.AutomationData;
+    console.log('AutomationData callback: ' + util.inspect(this.AutomationData.AutomationSwitch));
 
     setTimeout(this._getAutomationDeviceStatusEx.bind(this), TIMEOUT);
     

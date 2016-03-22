@@ -26,20 +26,20 @@ HoneywellTotalConnectAutomationScout.prototype.init = function(next) {
         // TODO: grab and pass to the driver: GetAutomationDeviceStatusEx
         honeywellSoap._getAutomationDeviceStatusEx(automationDevice.DeviceID, function(err, result, raw, soapHeader){
           console.log('_getAutomationDeviceStatusEx result: ' + util.inspect(result));
-          var automationData = result.GetAutomationDeviceStatusExResult.AutomationData;
-          console.log('AutomationData Scout automationData: ' + util.inspect(automationData));
-          (function(deviceLocation, automationDevice, automationData){
+          var AutomationData = result.GetAutomationDeviceStatusExResult.AutomationData;
+          console.log('AutomationData Scout AutomationData: ' + util.inspect(AutomationData));
+          (function(deviceLocation, automationDevice, AutomationData){
             console.log('deviceLocation.LocationID: ' +  deviceLocation.LocationID);
             console.log('automationDevice.DeviceID: ' + automationDevice.DeviceID);
-            var query = self.server.where({type: 'automation', locationID: deviceLocation.LocationID, deviceID: automationDevice.DeviceID});
+            var query = self.server.where({type: 'automation', LocationID: deviceLocation.LocationID, DeviceID: automationDevice.DeviceID});
             self.server.find(query, function(err, results) {
               if (results[0]) {
-                self.provision(results[0], HoneywellTotalConnectAutomation, honeywellSoap, deviceLocation, automationDevice, automationData);
+                self.provision(results[0], HoneywellTotalConnectAutomation, honeywellSoap, deviceLocation, automationDevice, AutomationData);
               } else {
-                self.discover(HoneywellTotalConnectAutomation, honeywellSoap, deviceLocation, automationDevice, automationData);
+                self.discover(HoneywellTotalConnectAutomation, honeywellSoap, deviceLocation, automationDevice, AutomationData);
               }
             });
-          })(deviceLocation, automationDevice, automationData);
+          })(deviceLocation, automationDevice, AutomationData);
         });
       }
     }
