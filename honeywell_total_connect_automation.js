@@ -1,25 +1,12 @@
-var Device = require('zetta-device');
+var HoneywellDevice = require('zetta-honeywell-total-connect-driver');
 var util = require('util');
 
 var TIMEOUT = 2000;
 
 var HoneywellTotalConnectAutomation = module.exports = function() {
-  Device.call(this);
+  HoneywellDevice.call(this, arguments[0], arguments[1]);
 
-  this._soap = arguments[0];
-  this.LocationID = arguments[1].LocationID;
-
-  var device = arguments[2];
-  this.DeviceID = device.DeviceID;
-  this.DeviceName = device.DeviceName;
-  this.DeviceSerialNumber = device.DeviceSerialNumber;
-
-  var flags = device.DeviceFlags.split(',');
-  for (i=0; i<flags.length; i++) {
-    var flagKeyValue = flags[i].split('=');
-    var key = flagKeyValue[0].charAt(0).toLowerCase() + flagKeyValue[0].slice(1);
-    this[key] = flagKeyValue[1];
-  }
+  this.LocationID = arguments[2].LocationID;
 
   this.AutomationData = arguments[3];
   console.log('AutomationData Driver constructor AutomationData: ' + util.inspect(this.AutomationData));
@@ -34,7 +21,7 @@ var HoneywellTotalConnectAutomation = module.exports = function() {
   this.CommunicationState = this.AutomationData.CommunicationState;
   this.AutomationStatusLimit = this.AutomationData.AutomationStatusLimit;
 };
-util.inherits(HoneywellTotalConnectAutomation, Device);
+util.inherits(HoneywellTotalConnectAutomation, HoneywellDevice);
 
 // TODO: check the actual status of the panel then set current state
 HoneywellTotalConnectAutomation.prototype.init = function(config) {

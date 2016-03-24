@@ -34,9 +34,9 @@ HoneywellTotalConnectAutomationScout.prototype.init = function(next) {
             var query = self.server.where({type: 'automation', LocationID: deviceLocation.LocationID, DeviceID: automationDevice.DeviceID});
             self.server.find(query, function(err, results) {
               if (results[0]) {
-                self.provision(results[0], HoneywellTotalConnectAutomation, honeywellSoap, deviceLocation, automationDevice, AutomationData);
+                self.provision(results[0], HoneywellTotalConnectAutomation, honeywellSoap, automationDevice, deviceLocation, AutomationData);
               } else {
-                self.discover(HoneywellTotalConnectAutomation, honeywellSoap, deviceLocation, automationDevice, AutomationData);
+                self.discover(HoneywellTotalConnectAutomation, honeywellSoap, automationDevice, deviceLocation, AutomationData);
               }
             });
           })(deviceLocation, automationDevice, AutomationData);
