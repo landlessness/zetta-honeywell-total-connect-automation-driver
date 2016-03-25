@@ -4,9 +4,7 @@ var util = require('util');
 var TIMEOUT = 2000;
 
 var HoneywellTotalConnectAutomation = module.exports = function() {
-  HoneywellDevice.call(this, arguments[0], arguments[1]);
-
-  this.LocationID = arguments[2].LocationID;
+  HoneywellDevice.call(this, arguments[0], arguments[1], arguments[2].LocationID);
 
   this.AutomationData = arguments[3];
   console.log('AutomationData Driver constructor AutomationData: ' + util.inspect(this.AutomationData));
